@@ -4,21 +4,33 @@
 
 #################################
 
-## List below here, in a comment/comments, the people you worked with on this assignment AND any resources you used to find code (50 point deduction for not doing so). If none, write "None".
+## List below here, in a comment/comments,
+ ##the people you worked with on this assignment AND
+ ##any resources you used to find code (50 point deduction
+ ##for not doing so). If none, write "None".
 
 
 
 ## [PROBLEM 1] - 150 points
-## Below is code for one of the simplest possible Flask applications. Edit the code so that once you run this application locally and go to the URL 'http://localhost:5000/class', you see a page that says "Welcome to SI 364!"
+## Below is code for one of the simplest
+# possible Flask applications. Edit the
+ #code so that once you run this application
+ #locally and go to the URL 'http://localhost:5000/class',
+  #you see a page that says "Welcome to SI 364!"
 
-from flask import Flask
+from flask import Flask, request
+import requests
+from werkzeug.wrappers import Request, Response ##Fixes google chrome 404 redirecting error with each route by adding favicon because chrome calls it everytime. I wasted many hours finding this :( source:https://github.com/pallets/flask/issues/405 and http://werkzeug.pocoo.org/docs/0.14/tutorial/
+
 app = Flask(__name__)
 app.debug = True
 
 @app.route('/')
 def hello_to_you():
     return 'Hello!'
-
+@app.route('/class')
+def greeting_class():
+    return "<h1>Welcome to SI 364!</h1>"
 
 if __name__ == '__main__':
     app.run()

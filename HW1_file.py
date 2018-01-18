@@ -96,22 +96,31 @@ def times_two():
 # You can assume that a user will give you the type of input/response you expect in your form; you do not need to handle errors or user confusion. (e.g. if your form asks for a name, you can assume a user will type a reasonable name; if your form asks for a number, you can assume a user will type a reasonable number; if your form asks the user to select a checkbox, you can assume they will do that.)
 
 # Points will be assigned for each specification in the problem.
-
 @app.route('/problem4form', methods=['POST','GET'])
-def problem4():
-    s = """<br>
-    <form action="/problem4form" method='POST'>
-    <input type="checkbox" name="FirstIngredient" value="PeanutButter"> Do you like Peanut Butter? <br>
-    <input type="checkbox" name="SecondIngredient" value="Do you like "> Do you like jelly? <br>
-    <input type="checkbox" name="ThirdIngredient" value="Nutella"> Do you like Nutella? <br>
-    <input type="checkbox" name="FourthIngredient" value="Banannas"> Do you like Banannas? <br>
-    <input type="text" name="other"> Other <br>
-    <input type="submit" value="Submit">"""
+def enterData():
+    s = """<!DOCTYPE html>
+<html>
+<body>
+<method = 'POST'>
+<form>
+  INGREDIENT:<br>
+  <input type="checkbox" name="Ingredient" value="Peanut Butter"> Do you like Peanut Butter? <br>
+  <input type="checkbox" name="Ingredient" value="Jelly"> Do you like jelly? <br>
+  <input type="checkbox" name="Ingredient" value="Nutella"> Do you like Nutella? <br>
+  <input type="checkbox" name="Ingredient" value="Banannas"> Do you like Banannas? <br>
+  <input type='text' name='Ingredient' value='enter here'> What do you like? <br>
+  <br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>"""
     if request.method == 'POST':
-        data=request.form['FirstIngredient']
-        url="https://api.edamam.com/search?q=PeanutButter&app_id=${ac89334e}&app_key=${4ac54a91f73a222a3ea8963e5b10322d}"
+        data =request.values.get('Ingredient') # Your form's
+        # data=request.form['Ingredient']
+        url="https://api.edamam.com/search?q=PeanutButter&app_id=${ac89334e}&app_key=${6e18d70b624fa73e890d0be694e0acef}"
         json=requests.get(url +data)
-        return json
+        return 'you should try:' +json
+    return 'you have no taste' 
 
 
 

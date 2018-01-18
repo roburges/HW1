@@ -9,7 +9,7 @@
  ##any resources you used to find code (50 point deduction
  ##for not doing so). If none, write "None".
  ##resources= https://prettyprinted.com/blog/1128685/creatign-todo-list-app-with-flask, http://werkzeug.pocoo.org/docs/0.14/tutorial/
- ##worked with: none 
+ ##worked with: none
 ## [PROBLEM 1] - 150 points
 ## Below is code for one of the simplest
 # possible Flask applications. Edit the
@@ -97,26 +97,27 @@ def times_two():
 
 # Points will be assigned for each specification in the problem.
 
-@app.route('/problem4form',methods=['POST','GET'])
-def groceries():
-    grocerylist=[]
-    result=''
-    groceries = """<!DOCTYPE html>
-    <html>
-    <body>
-    <form method = 'POST'>
-    <form>
-      Please enter grocery item:<br>
-      <input type="text" name="Item">
-      <br>
-      <input type="submit" value="Submit">
-    </form>
-    </body>
-    </html>"""
-    groceryitem=request.form['item']
-    grocerylist.append(groceryitem)
-    return 'your list includes:' +groceries
-    # else:
-    #     return 'tryagain'
+@app.route('/problem4form', methods=['POST','GET'])
+def problem4():
+    s = """<br>
+    <form action="/problem4form" method='POST'>
+    <input type="checkbox" name="FirstIngredient" value="PeanutButter"> Do you like Peanut Butter? <br>
+    <input type="checkbox" name="SecondIngredient" value="Do you like "> Do you like jelly? <br>
+    <input type="checkbox" name="ThirdIngredient" value="Nutella"> Do you like Nutella? <br>
+    <input type="checkbox" name="FourthIngredient" value="Banannas"> Do you like Banannas? <br>
+    <input type="text" name="other"> Other <br>
+    <input type="submit" value="Submit">"""
+    if request.method == 'POST':
+        data=request.form['FirstIngredient']
+        url="https://api.edamam.com/search?q=PeanutButter&app_id=${ac89334e}&app_key=${4ac54a91f73a222a3ea8963e5b10322d}"
+        json=requests.get(url +data)
+        return json
+
+
+
 if __name__ == '__main__':
     app.run()
+
+##https://www.google.com/search?rlz=1C1CHBF_enUS763US763&ei=l3RdWp_EDOusjwTAxoQo&q=new+ranging+botas&oq=new+ranging+botas&gs_l=psy-ab.3...20798.25764.0.26689.6.6.0.0.0.0.339.1214.0j2j1j2.5.0....0...1c.1.64.psy-ab..1.3.755...0i22i10i30k1j0i22i30k1j33i21k1j33i160k1.0.FRyLKY_h9Z8
+    # else:
+    #     return 'tryagain'
